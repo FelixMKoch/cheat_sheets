@@ -1,0 +1,592 @@
+\documentclass[10pt,landscape,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,arrows,fit,calc,graphs,graphs.standard}
+\usepackage[nosf]{kpfonts}
+\usepackage[t1]{sourcesanspro}
+%\usepackage[lf]{MyriadPro}
+%\usepackage[lf,minionint]{MinionPro}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage[top=2mm,bottom=2mm,left=2mm,right=2mm]{geometry}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\title{First Latex Dokument}
+\author {Felix}
+\date{07.05.2020}
+
+
+
+\begin{document}
+
+%\begin{mdframed}
+%Cheat sheet\\
+%by~Felix~Koch,~page~\thepage~of~4
+%\end{mdframed}
+\begin{multicols}{3}
+\section{Deskriptive Statistik}
+\subsection{Begriffe}
+\begin{itemize}
+	\setlength\itemsep{-0.5em}
+	\item Grundgesamtheit $\Omega$ 
+	\item Element der Grundgesamtheit $\omega$
+	\item diskret (<30) - stetig($\geq$30)
+	\item univariant (p=1) - mulitvariant (p>1)
+\end{itemize}
+
+\subsection{Kenngrößen}
+\begin{itemize}
+	\setlength\itemsep{-0.5em}
+	\item Modalwert: $x_{mod}$
+	\item Mittelwert: \={x} = $\tfrac{1}{n} \sum\limits_{i=1}^{n}$
+	\item Median: $x_{0.5}$
+\end{itemize}
+
+\subsection{Streuungsmaße}
+\begin{itemize}
+	\setlength\itemsep{-0.5em}
+	\item Spannweite: max $x_i$ - min $x_i$
+	\item Stichprobenvarianz: $s^2$ = var(x)\\
+		 $\tfrac{1}{n-1}$ $(\sum\limits_{i=1}^{n}x_i^2 - n{\text{\={x}}}^2)$
+	\item Standardabweichung: s = $\sqrt{var(x)}$
+\end{itemize}
+
+\subsection{p-Quantile}
+$
+    f(x) =
+    \begin{cases}
+        x_{floor(np)+1} & \text{if $n * p \not\in \mathbb{N}$}\\
+        \frac{1}{2}(x_{np} + x_{np+1}) & \text{if $n * p \in \mathbb{N}$}
+    \end{cases}
+$
+
+\subsection{Korrelation}
+\begin{itemize}
+	\item Empirische Kovarianz: $s_{xy}$ \\
+		$\tfrac{1}{n-1} (\sum\limits_{i=1}^{n} (x_i y_i) - n{\text{\={x}\={y}}})$
+	\item Empirischer Korrelationskoeffizient: $r$ \\
+		r=$\tfrac{s_{xy}}{s_x*s_y}$
+\end{itemize}
+
+\section{Wahrscheinlichkeitsrechnung}
+\subsection{Begriffe}
+\begin{itemize}
+	\item Vereinigung E$\cup$F: E oder F \\
+		$\cup_{i=1}^n$ $E_i$: >1 Ereignis tritt ein
+	\item Schnitt E$\cap$F: E und F \\
+		$\cap_{i=1}^n$ $E_i$: >Alle Ereignisse treten ein
+	\item Gegenereignis \={E}: nicht E
+	\item Disjunkte Ereignisse E und F: E $\cap$ F = $\emptyset$ 
+\end{itemize}
+
+\subsection{Axiome von Kolmogorov}
+\begin{itemize}
+	\item 0 $\geq$ P(E) $\geq$ 1
+	\item P($\Omega$) = 1
+	\item P($\cap_{i=1}^{\infty}E_i$ = $\sum_{i=1}^{\infty}$P($E_i$) falls $E_i \cap E_j = \emptyset$
+\end{itemize}
+
+\subsection{Bedingte Wahrscheinlichkeit}
+$P(E|F) = P_F(E) = \frac{|E \cap F||}{|F|} = \frac{P(E \cap F)}{P(F)}$
+\begin{itemize}
+	\item $P(E \cap F) = P(E|F) * P(F)$
+	\item $P(E \cap F) = P(F|E) * P(E)$
+\end{itemize}
+
+\subsection{Formel von Bayes}
+Hilfreich, wenn man P($F|E_i$) kennt, aber nicht P($E_k|F$) \\
+$P(E_k|F) = \frac{P(F|E_k)*P(E_k)}{\sum\limits_{i=1}^n P(F|E_i) * P(E_i)}$
+
+\subsection{Stochastische Unabhängigkeit}
+\begin{itemize}
+	\item $P(E|F) = P(E)$, oder
+	\item $P(E \cap F) = P(E) * P(F)$ 
+\end{itemize}
+
+\section{Zufallsvariablen}
+\subsection{Begriffsklärung}
+$Eine Abbildung X : \Omega \rightarrow \mathbb{N}, \omega \rightarrow X(\omega) = x $ Zufallsvariable
+\begin{itemize}
+	\item Diskrete ZV: X($\Omega$) = \{$x_1,...,x_n$\}(n$\in \mathbb{N}$)
+	\item Stetige ZV: X($\Omega$)$\subseteq \mathbb{N}$ 
+\end{itemize}
+
+\subsection{Stetige Zufallsvariablen}
+Definition: $P(a<X<B) = \int\limits_a^bf(x)dx$\\
+Es gilt:
+\begin{itemize}
+	\setlength\itemsep{-0.5em}
+	\item $f(x) \geq 0$
+	\item $\int\limits_{-\infty}^{\infty}f(x)dx = 1$
+	\item $F(x) = P(X \geq x) = \int\limits_{-\infty}^xf(t)dt und F'(x) = f(x)$
+\end{itemize}
+
+\subsection{Erwartungswert}
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item Für diskrete ZV: E[x] = $\sum\limits_{i=1}^nx_i * p(x_i)$
+	\item Für stetige ZV: E[X] = $\int\limits_{-\infty}^{\infty}x * f(x)dx$
+\end{itemize}
+
+\subsection{Varianz und Kovarianz}
+Varianz: $\sigma^2 = Var[X] = E[(X-\mu)^2]$ \\
+Falls stetig: $\int\limits_{-\infty}^{\infty}(x-\mu)^2 * f(x) dx$ \\
+Verschiebungssatz: $Var[X] = E[X^2]-(E[X])^2$ \\
+Kovarianz: $Cov[X, Y] = E[(X-E[X])(Y-E[Y])]$
+
+\subsection{Quantile}
+Kleinster Wert für den gilt: $F(x_p)\geq p$ \\
+Berechnung: $x_p = F^{-1}(p)$
+
+\section{Spezielle Verteilungen}
+\subsection{Bernulli Verteilung}
+\begin{itemize}
+	\setlength\itemsep{-0.5em}
+	\item Bei Erfolg 1, bei Misserfolg 0
+	\item Verteilung: $X \sim B_{1,p}$
+	\item Erwartungswert: $E[X]=p$
+	\item Varianz: $Var[X] = p(1-p)$
+\end{itemize}
+
+\subsection{Binomialverteilung}
+\begin{itemize}
+	\setlength\itemsep{-0.5em}
+	\item Wahrscheinlichkeit: $P(X=k) = \binom{n}{k} * p^k * (1-p)^{n-k}$
+	\item Verteilung: $X \sim B_{n,p}$
+	\item Erwartungswert: $E[X] = np$
+	\item Varianz: $Var[X] = np(1-p)$
+\end{itemize}
+
+\subsection{Hypergeometrische Verteilung}
+\begin{itemize}
+	\setlength\itemsep{-0.5em}
+	\item Wahrscheinlichkeit: $P(X=k)= \frac{\binom{M}{k} * \binom{N}{n-k}}{\binom{M+N}{n}}$
+	\item Verteilung: $X \sim H_{M,N,n}$
+	\item Erwartungswert: $E[X] = n * \frac{M}{M+N}$
+	\item Varianz: $Var[X] = n * \frac{M}{M+N} *(1 - \frac{M}{M+N}) * \frac{M+N-n}{M+N-1}$
+\end{itemize}
+
+\subsection{Poisson-Verteilung}
+\begin{itemize}
+	\setlength\itemsep{-0.5em}
+	\item Wahrscheinlichkeit: $P(X=k) = \frac{\lambda^k}{k!} * \exp^{\lambda}$
+	\item Verteilung: $X \sim P_{\lambda}$
+	\item Erwartungswert: $E[X] = \lambda$
+	\item Varianz: $Var[X] = \lambda$
+\end{itemize}
+
+\subsection{Gleichverteilung}
+\begin{itemize}
+	\setlength\itemsep{-0.5em}
+	\item Wahrscheinlichkeit: $P(X=x_k) = \frac{1}{n}$
+	\item Verteilung: $X \sim U_{x_1,...,x_n}$
+	\item Erwartungswert: $E[X] = \frac{1}{n} \sum\limits_{k=1}^n x_k = \text{\={x}}$
+	\item Varianz: $Var[X] = \frac{1}{n} (\sum\limits_{k=1}^n x_k)^2 - (\text{\={x}})^2$
+\end{itemize}
+
+\subsection{Stetige Gleichverteilung}
+\begin{itemize}
+	\setlength\itemsep{-0.5em}
+	\item Dichte: $f(x) = \frac{1}{b-a}$
+	\item Verteilung: $X \sim U_{a,b}$
+	\item Erwartungswert: $E[X] = \frac{a+b}{2}$
+	\item Varianz: $Var[X] = \frac{(b-a)^2}{12}$
+\end{itemize}
+
+\subsection{Normalverteilung}
+\begin{itemize}
+	\setlength\itemsep{-0.5em}
+	\item Dichte: $f(x) = \frac{1}{\sigma \sqrt{2*\pi}} \exp * (-\frac{1}{2} * (\frac{x-\mu}{\sigma})^2))$
+	\item Verteilung: $X \sim N_{\mu, \sigma^2}$
+	\item Erwartungswert: $E[X] = \mu$
+	\item Varianz: $Var[X] = \sigma^2$
+\end{itemize}
+
+\subsection{Exponentialverteilung}
+\begin{itemize}
+	\setlength\itemsep{-0.5em}
+	\item Dichte + Verteilung: $f(x) = \lambda * \exp^{-\lambda x}(x \geq 0); F(x) = 1-(\exp)^{-\lambda x}$
+	\item Verteilung: $X \sim Exp_{\lambda}$
+	\item Erwartungswert: $E[X] = \frac{1}{\lambda}$
+	\item Varianz: $Var[X] = \frac{1}{\lambda^2}$
+\end{itemize}
+
+\subsection{Chiquadrat-Verteilung}
+\begin{itemize}
+	\setlength\itemsep{-0.5em}
+	\item Anwendung: Summen unabhängiger normalverteilter ZV
+	\item Verteilung: $X \sim \chi_n^2$
+	\item Erwartungswert: $E[X] = n$
+	\item Varianz: $Var[X] = 2n$
+\end{itemize}
+
+\subsection{t-Verteilung}
+\begin{itemize}
+	\setlength\itemsep{-0.5em}
+	\item Anwendung: Schätz und Testverfahren bei unbekannter Var
+	\item Verteilung: $Y \sim t_n$
+	\item Erwartungswert: $E[Y]=0$ für n>1
+	\item Varianz: $Var[Y] = \frac{n}{n-2}$ für n>2
+\end{itemize}
+
+\section{Zentraler Grenzwertsatz}
+\subsection{General}
+Seien $X_i (i=1,...,n)$ ZV, gilt für hinreichend großes n näherungsweise:$
+	\sum\limits_{i=1}^nX_i \sim N_{n \mu , n \sigma^2}$. \\
+Wichtig: $\frac{\text{\={X}} - \mu}{\sigma} * \sqrt{n} \sim N_{0, 1}$
+
+Fausteregel für Größe von n:
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item $n>30$, falls unbekannt Verteilung schief ist
+	\item $n>15$, falls unbekannte Verteilung annähernd symmetrisch
+	\item $n \leq 15$, falls unbekannte Verteilung annähernd normalverteilt
+\end{itemize}
+
+\subsection{Stichprobenverteilung}
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item Stichprobenmittel: $\text{\={X}} = \frac{1}{n} \sum\limits_{i=1}^n X_i$
+	\item Stichprobenvarianz: $S^2 = \frac{1}{n-1} * (\sum\limits_{i=1}^n X_i^2 - n \text{\={X}}^2)$
+\end{itemize}
+
+
+\section{Parameterschätzung}
+\subsection{Konfidenzintervall}
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item Punktschätzer:
+	\begin{itemize}
+		\setlength\itemsep{-0.2em}
+		\item Stichprobenmittel: $\text{\={X}} = \frac{1}{n} \sum\limits_{i=1}^n X_i$
+		\item Stichprobenvarianz: $S^2 = \frac{1}{n.1} \sum\limits_{i=1}^n (X_i - \text{\={X}})^2$
+	\end{itemize}
+	\item Intervallschätzer: Konfidenzintervall. das wahren Parameter mit gewisser Wahrscheinlichkeit ($1-\alpha$) überdeckt
+	\begin{itemize}
+		\setlength\itemsep{-0.2em}
+		\item Vorgabe einer großen Sicherheit (95%, 99% usw.)
+	\end{itemize}
+\end{itemize}
+
+Allgemein: I = ]$\text{\={X}} - \phi^{-1} (1- \frac{\alpha}{2}) \frac{\sigma}{\sqrt{n}} $, $ \text{\={X}} + \phi^{-1} (1- \frac{\alpha}{2}) \frac{\sigma}{\sqrt{n}}$[
+
+Aufgabentypen:
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item Gesucht n: $\sqrt{n} > 2 \phi^{-1} (1 - \frac{\alpha}{2}) \frac{\sigma}{L}$
+	\item Gesucht 1 - $\alpha$:$ 1 - \frac{\alpha}{2} = \phi (\frac{L}{2} \frac{\sqrt{n}}{\sigma})$
+\end{itemize}
+
+
+\section{Hypothesentests}
+\subsection{Hypothesenarten}
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item Nullhypothese $H_0$: Angezweifelte Aussage, die widersprochen werden kann (z.B. $H_1 : \mu \neq \mu_0$)
+	\item Gegenhypothese $H_1$: Gegenteil von $H_0$ (z.B. $H_1 : \mu \neq \mu_0$
+\end{itemize}
+
+\subsection{Signifikanzniveau}
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item Ablehnungsbereich C: Werte, die für $H_1$ sprechen und bei Gültigkeit von $H_0$ mit Wahrscheinlichkeit $\leq \alpha$, dem sog. Signifikanzniveau auftreten. $\rightarrow$ Fehler 1.Art: $H_0$ wird verworfen, trotz richtig
+	\item Annahmebereich: Komplement $\text{\={C}}$ des Ablehnungsbereichs kann nicht abgelehnt werden. $\rightarrow$ Fehler 2. Art: $H_0$ wird nicht abgelehnt, obwohl sie falsch ist.
+\end{itemize}
+
+\subsection{Klassische Parametertests}
+Testprobleme:
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item Zweiseitiger Test:
+	\begin{itemize}
+		\setlength\itemsep{-0.2em}
+		\item $H_0 : \mu = \mu_0$ gegen $H_1 : \mu \neq \mu_0$
+	\end{itemize}
+	\item Einseitige Tests:
+	\begin{itemize}
+		\setlength\itemsep{-0.2em}
+		\item $H_0 : \mu \geq \mu_0$ gegen $H_1 : \mu < \mu_0$ bzw.
+		\item $H_0 : \mu \leq \mu_0$ gegen $H_1 : \mu > \mu_0$
+	\end{itemize}
+\end{itemize}
+Wird $H_0$ verworfen, so spricht man von einer signifikanten Schlussfolgerung.
+
+\subsection{Gauß-Test}
+\subsubsection{Varianz bekannt}
+Prüfgröße tg = $\frac{\text{\={X}} - \mu_0}{\sigma_0} * \sqrt{n}$
+
+\begin{tabular}{ |p{1cm}|p{1cm}|p{2.8cm}|p{2.3cm}| }
+	\hline
+	$H_0$ & $H_1$ & $H_0$ ablehnen, falls & p-Wert\\
+ 	\hline
+ 	$\mu = \mu_0$ & $\mu \neq \mu_0$ & $|tg|>\phi^{-1}(1-\frac{\alpha}{2})$ & $2(1 - \phi(|tg|))$\\
+ 	\hline
+ 	$\mu \leq \mu_0$ & $\mu > \mu_0$ & $tg > \phi^{-1}(1 - \alpha)$ & $1 - \phi (tg)$\\
+ 	\hline
+ 	$\mu \geq \mu_0$ & $\mu < \mu_0$ & $tg < \phi^{-1}(\alpha)$ & $\phi (tg)$\\
+ 	\hline
+\end{tabular}
+
+\subsubsection{Varianz unbekannt}
+Prüfgröße tg = $\frac{\text{\={X}} - \mu_0}{S} * \sqrt{n}$ ~ $t_{n-1}$
+
+\begin{tabular}{ |p{1cm}|p{1cm}|p{2.8cm}|p{2.3cm}| }
+	\hline
+	$H_0$ & $H_1$ & $H_0$ ablehnen, falls & p-Wert\\
+ 	\hline
+ 	$\mu = \mu_0$ & $\mu \neq \mu_0$ & $|tg|>t^{-1}_{n-1}(1-\frac{\alpha}{2})$ & $2(1 - t_{n-1}(|tg|))$\\
+ 	\hline
+ 	$\mu \leq \mu_0$ & $\mu > \mu_0$ & $tg > t^{-1}_{n-1}(1 - \alpha)$ & $1 - t_{n-1} (tg)$\\
+ 	\hline
+ 	$\mu \geq \mu_0$ & $\mu < \mu_0$ & $tg < t^{-1}_{n-1}(\alpha)$ & $t_{n-1}(tg)$\\
+ 	\hline
+\end{tabular}
+
+\subsection{p-Wert}
+Wahrscheinlichkeit, bei Zutreffen von $H_0$ den beobachteten Wert tg der Prüfgröße oder einen noch stärker von $\mu_0$ abweichenden Wert zu bekommen. 
+Beispiel: p-Wert=0.0114, dann:
+
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item $H_0 $kann für $\alpha = 5\%$ abgelehnt werden,
+	\item für $\alpha = 1\%$ aber nicht
+\end{itemize}
+
+Testentscheidungen anhand des p-Werts:
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item p-Wert $<1\%$: Sehr hohe Signifikanz
+	\item $1\% \leq$p-Wert $<5\%$: Hohe Signifikanz
+	\item $5\% \leq$p-Wert $\leq10\%$: Signifikanz
+	\item p-Wert $>10\%$: Keine Signifikanz
+\end{itemize}
+
+\section{Fehlerquellen}
+Quellarten:
+
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item Diskretierungsfehler
+	\item Modellierungsfehler
+	\item Fehler in Eingangsdaten
+	\item Fehler durch Gleitpunktarithmetik
+\end{itemize}
+
+\subsection{Maschinengenauigkeit}
+$\epsilon$ ist die kleinste Zahl x mit $rd(1+x) \neq 1$ \\
+
+Rundungsfehler:
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item Absolut: $|rd(x)-x| \leq |x| * \epsilon$
+	\item Relativer: $\frac{|rd(x)-x|}{x} \leq \epsilon$
+\end{itemize}
+
+\subsection{Kondition und Stabilität}
+Numerische Lösung eines Problems:
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item x : Exakte Eingangsdaten
+	\item f: Analytische Lösung
+	\item $\hat{x}$: Fehlerbehaftete Eingangsdaten
+	\item $\hat{f}$: Numerisches Lösungsverfahren
+\end{itemize}
+
+Gesamtfehler: \\
+$\rightarrow f(x) - \hat{f}(\hat{x}) = f(x) - f(\hat{x}) + (f(\hat{x}) - \hat{f}(\hat{x})$
+
+\subsubsection{Kondition}
+$cond(x) = |\frac{\text{realiver Fehler im Ergebnis}}{relativer Fehler in den Eingabedaten}| = |\frac{\frac{f(\hat{x}-f(x)}{f(x)}}{\frac{\widetilde{x}-x}{x}}|$ \\
+Schlecht konditioniert, wenn cond $>>$ 1
+
+\subsubsection{Fehlerfortpflanzung}
+\begin{itemize}
+	\item $z = f(x)$
+	\item $\Delta f = f(\widetilde{x}) - f(x) \approx \text{f'}(x) \Delta x$
+	\item cond $\approx |\frac{\text{f'}(x)}{f(x)}x|$
+\end{itemize}
+
+
+\section{Interpolation}
+Im Gegensatz zu Approximation nicht geeignet für verrauschte Daten.
+
+\subsection{Polynominterpolation}
+\subsubsection{Klassischer / Vandermonde Ansatz}
+$\underline{Ziel}:$ Bestimmung der Koeffizienten $a_0, a_1, ..., a_n$, so dass:
+$p_n(x_i) = y_i = a_n x_i^n + ... + a_1 x_i + a_0$ \\
+
+In Matrixform:   
+$
+\begin{pmatrix}
+	x_0^n & ... & x_0^2 & x_0 & 1\\
+	x_1^n & ... & x_1^2 & x_1 & 1\\
+	x_2^n & ... & x_2^2 & x_2 & 1\\
+	... & ... & ... & ... & ...\\
+	x_n^n & ... & x_n^2& x_n & 1
+\end{pmatrix}
+$
+$
+\begin{pmatrix}
+	a_n \\
+	a_{n-1} \\
+	... \\
+	... \\
+	a_0
+\end{pmatrix}
+$
+=
+$
+\begin{pmatrix}
+	y_0 \\
+	y_1 \\
+	... \\
+	... \\
+	y_n
+\end{pmatrix}
+$ \\
+$\underline{Problem}:$ Rechenaufwand für Lösung hoch: $\Theta (n^3)$ und für große n schlecht konditioniert
+
+\subsubsection{Ansatz nach Lagrange}
+$\rightarrow p_n(x) = y_0L_0(x) + y_1L_1(x) + ... + y_nL_n(x)$ \\ \\
+Beispiel:
+\begin{tabular}{c | c c c} 
+ i & 0 & 1 & 2 \\ 
+ \hline
+ $x_i$ & -2 & 3 & 1 \\
+ \hline
+ $y_i$ & -15 & -5 & 3 
+\end{tabular} \\
+
+$\rightarrow p_2(x) = y_0L_0(x) + y_1L_1(x) + y_2L_2(x)$
+
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item $L_0(x) = \frac{x-x_1}{x_0-x_1} * \frac{x-x_2}{x_0-x_2} = \frac{x-3}{-2-3} * \frac{x-1}{-2-1} = \frac{1}{15}(x-3)(x-1)$
+	\item $L_1(x) = \frac{x-x_0}{x_1-x_0} * \frac{x-x_2}{x_1-x_2} = \frac{x+2}{3+2} * \frac{x-1}{3-1} = \frac{1}{10}(x+2)(x-1)$
+	\item $L_2(x) = \frac{x-x_0}{x_2-x_0} * \frac{x-x_1}{x_2-x_1} = \frac{x+2}{1+2} * \frac{x-3}{1-3} = -\frac{1}{6}(x+2)(x-3)$
+\end{itemize}
+
+$p_2(x) = -15 * L_0(x) + (-5) * L_1(x) + 3 * L_2(x) = -2x^2 + 4x + 1$
+
+Bemerkungen:
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item Vorteil: Keine Neuberechnung, wenn sich nur y-Werte ändern
+	\item Nachteil: Neue Stützpunkte: Funktionen müssen neu berechnet werden
+	\item Rechenaufwand: $\theta ((n+1)^2)$
+\end{itemize}
+
+
+\subsubsection{Ansatz nach Newton}
+$\rightarrow p_n(x) = c_0 + c_1(x-x_0)+...+c_n(x-x_0)(x-x_1)...(x-x_{n-1})$ \\
+$\rightarrow$ Rechenaufwand reduziert sich: $\Theta (n^2)$ \\
+$\underline{Beispiel}$: \\
+
+\begin{tabular}{c | c c c} 
+ i & 0 & 1 & 2 \\
+ \hline
+ $x_i$ & -1 & 3 & 1 \\
+ \hline
+ $y_i$ & -15 & -5 & 3
+\end{tabular} \\ 
+
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item $x_0,y_0$ mit $x_1,y_1: \frac{-5-(-15)}{3-(-2)} = 2$
+	\item $x_1,y_1$ mit $x_2,y_2: \frac{3-(-5)}{1-3} = -4$
+	\item $x_0,y_0$ bis $x_2,y_2: \frac{-4-2}{1-(-2)} = -2$
+\end{itemize}
+
+Daraus folgt:
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item $c_0 = -15$
+	\item $c_1 = 2$
+	\item $c_2 = -2$
+\end{itemize}
+
+Vorteile:
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item Rechenaufwand reduziert sich: $\theta (n^2)$
+	\item Hinzufügen von Stützpunkten ohne großen Aufwand möglich
+\end{itemize}
+$p_2(x) = c_0 + c_1(x-(-2))+c_2(x+2)(x-3) = -15+2(x+2)-2(x+2)(x-3) = -2x^2 +4x +1$
+
+\subsubsection{Horner-Schema}
+Klassisch: $p_n(x)=a_nx^n + ... + a_0$\\
+Horner-Schema: \\
+$p_3(x) = a_3x^3 + a_2x^2 +a_1x+a_0 = ((a_3x+a_2)x+a_1)x+a_0$
+
+
+\subsection{Interpolationsfehler}
+Falls f hinreichend glatt ist und $p_n$ das eindeutige Interpolationspolynom vom Grad n, dann gilt für den Interpolationsfehler: \\
+$f(x)-p_n(x) = \frac{f^{n+1}(\Theta)}{(n+1)!}(x-x_0) ... (x-x_n)$ mit $\Theta \in [x_0;x_n]$
+
+
+\subsection{Chebyshev-Punkte}
+Stützstellen für besser Interpolation. Erhält man durch orthogonale Projektion von gleichverteilten Punkten auf dem Einheitskreis. \\
+Durch die Verwendung wird der Fehler gleichmäßiger verteilt $\rightarrow$ Konvergenz.
+
+\subsection{Spline-Interpolation}
+= Aus Polynomen zusammengesetzte Funktion.
+S(x) = $s_0(x) für x_0 \leq x < x_1; S_1(x), für x_1 \leq x < x_2 ...$
+Definition Grad k:
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item Jede Funktion $S_i(x)$ ist ein Polynom vom Grad $\leq$ k
+	\item S(x) ist (k-1)-mal stetig differenzierbar
+\end{itemize}
+$\underline{Vorteil}$: Nach geschickter Umformung der Gleichung: Rechenaufwand $\Theta(n)$
+
+\section{Numerische Integration}
+\subsection{Trapezregel}
+$\rightarrow$ Trapeze zwischen Punkte machen zur Hilfe. \\
+Für Teilintervalle mit der gleichen Länge: h = $\frac{b-a}{n}$ \\
+Formel: $T_n = h ( \frac{f(x_0)}{2} + f(x_1) + ... + f(x_{n-1}) + \frac{f(x_n)}{2})$
+
+\subsection{Simpson-Regel}
+$\rightarrow$ Näherung mit kubischen Parabeln. \\
+Voraussetzung: Gerade Anzahl an Parabeln. \\
+Für 2n Teilintervalle mit gleicher Länge h = $\frac{b-a}{2n}$: \\
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item $S_2 = \frac{h}{3}(f(x_0) + 4f(x_1) + 2f(x_2) + 4f(x_3) + f(x_4))$
+	\item $S_3 = \frac{h}{3} (f(x_0) + 4f(x_1) + 2f(x_2) + 4f(x_3) + 2f(x_4) + 4f(x_5) + f(x_6))$
+\end{itemize}
+
+\subsection{Fehler der Quadratur}
+
+Ordnung einer Integrationsregel:
+Eine Integrationsregel hat Ordnung p, wenn sie für Polynome vom Grad $\leq$ p-1 exakte Werte liefert. \\
+Beispiele:
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item Ordnung Trapezregel $T_1$: 2 (Exakt für Polynome von Grad $\leq$ 1
+	\item Ordnung Newton-Cotes Regeln: mindestens Ordnung k+1
+\end{itemize}
+
+\subsubsection{Grenzen der Newton-Cotes-Regeln}
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item Bei Verwendung vieler äquidistanter Knoten treten die bekannten Probleme von Interpolationspolynomen höheren Grades auf $\rightarrow$ Gewichte werden negati, also Verfahren instabil
+	\item Die sog. geschlossenen Newton-Cotes-Regeln machen Funktionsauswertungen an den Grenzen des Intervalls erforderlich $\rightarrow$ Problem mit Singularitäten
+	\item Die Newton-Cotes-Regeln erreichen aufgrund der äquidistanten Knoten nicht die größtmögliche Ordnung
+\end{itemize}
+
+\subsection{Gauß-Quadratur}
+Idee: Wähle die Knoten $t_j$ und Gewichte $\alpha_j$ so, dass man ein Verfahren möglichst großer Ordnung p erhält. \\
+$\underline{Bedingung:}$ \\
+$\int_0^1 p_r(t)dt$ = $\sum\limits_{j=0}^k \alpha_j p_r (t_j)$ für alle Polynome vom Grad $\leq p-1$ \\
+$\rightarrow$ Ordnung p = 2k + 2
+
+
+
+
+
+\end{multicols}
+\end{document}
